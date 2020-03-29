@@ -33,7 +33,6 @@ type Altcoin struct {
 	PubKeyHashAddrID byte
 	PrivateKeyID     byte
 	CoinType         int
-	ProtocolType     int
 }
 
 type Coin string
@@ -45,7 +44,7 @@ const (
 )
 
 var CoinList = map[Coin]*Altcoin{
-	Ether:    {"Ether", 0xff, 0xff, 60, 7},
-	Bitcoin:  {"Bitcoin", 0x00, 0x80, 0, 1},
-	Litecoin: {"Litecoin", 0x30, 0xb0, 2, 3},
+	Ether:    {"Ether", 0xff, 0xff, 60},
+	Bitcoin:  {"Bitcoin", 0x00, 0x80, 0},
+	Litecoin: {"Litecoin", 0x30, 0xb0, 2},
 }
