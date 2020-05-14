@@ -39,12 +39,18 @@ type Coin string
 
 const (
 	Ether    Coin = "Ether"
+	Energi   Coin = "Energi"
 	Bitcoin  Coin = "Bitcoin"
 	Litecoin Coin = "Litecoin"
+	Dash     Coin = "Dash"
+	Dogecoin Coin = "Dogecoin"
 )
 
 var CoinList = map[Coin]*Altcoin{
 	Ether:    {"Ether", 0xff, 0xff, 60},
+	Energi:   {"Energi", 0xff, 0xff, 9797},
 	Bitcoin:  {"Bitcoin", 0x00, 0x80, 0},
 	Litecoin: {"Litecoin", 0x30, 0xb0, 2},
+	Dash:     {"Dash", 0x4c, 0xcc, 5},
+	Dogecoin: {"Dogecoin", 0x1e, 0x9e, 3},
 }
