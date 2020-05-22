@@ -83,8 +83,8 @@ func bip44(coin *Altcoin, start, qty int, pkb []byte) (*Account, error) {
 			log.Error(err, "converts the extended key to a public key failed", log.Params{"i": i, "receive": receive})
 		}
 
-		// Ether addresses are handle differently
-		if coin.Name == "Ether" {
+		// Ethereum addresses are handle differently
+		if coin.Name == "Ethereum" {
 			// create our address from the publickey
 			address := crypto.PubkeyToAddress(*pubk.ToECDSA())
 

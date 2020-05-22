@@ -38,7 +38,7 @@ type Altcoin struct {
 type Coin string
 
 const (
-	Ether    Coin = "Ether"
+	Ethereum Coin = "Ethereum"
 	Energi   Coin = "Energi"
 	Bitcoin  Coin = "Bitcoin"
 	Litecoin Coin = "Litecoin"
@@ -47,7 +47,7 @@ const (
 )
 
 var CoinList = map[Coin]*Altcoin{
-	Ether:    {"Ether", 0xff, 0xff, 60},
+	Ethereum: {"Ethereum", 0xff, 0xff, 60},
 	Energi:   {"Energi", 0xff, 0xff, 9797},
 	Bitcoin:  {"Bitcoin", 0x00, 0x80, 0},
 	Litecoin: {"Litecoin", 0x30, 0xb0, 2},

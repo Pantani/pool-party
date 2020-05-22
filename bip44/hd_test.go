@@ -24,7 +24,7 @@ func Test_bip44(t *testing.T) {
 		{
 			name: "Test try the bip44 algorithm",
 			args: args{
-				coin:      CoinList["Ether"],
+				coin:      CoinList["Ethereum"],
 				start:     0,
 				qty:       10,
 				pkb:       nil,
@@ -32,7 +32,7 @@ func Test_bip44(t *testing.T) {
 			},
 			wantErr: false,
 			want: &Account{
-				Coin:     "Ether",
+				Coin:     "Ethereum",
 				CoinType: 60,
 				Addresses: Addresses{
 					{
@@ -91,7 +91,7 @@ func Test_bip44(t *testing.T) {
 		{
 			name: "Test try the bip44 algorithm",
 			args: args{
-				coin:      CoinList["Ether"],
+				coin:      CoinList["Ethereum"],
 				start:     0,
 				qty:       10,
 				pkb:       nil,
@@ -99,7 +99,7 @@ func Test_bip44(t *testing.T) {
 			},
 			wantErr: false,
 			want: &Account{
-				Coin:     "Ether",
+				Coin:     "Ethereum",
 				CoinType: 60,
 				Addresses: Addresses{
 					{
@@ -198,7 +198,7 @@ func Test_bip44WithWrongMnemonic(t *testing.T) {
 		{
 			name: "Test bip44 algorithm with wrong mnemonic",
 			args: args{
-				coin:      CoinList["Ether"],
+				coin:      CoinList["Ethereum"],
 				start:     0,
 				qty:       10,
 				pkb:       nil,
@@ -206,7 +206,7 @@ func Test_bip44WithWrongMnemonic(t *testing.T) {
 			},
 			wantErr: true,
 			want: &Account{
-				Coin:     "Ether",
+				Coin:     "Ethereum",
 				CoinType: 60,
 			},
 		},
@@ -253,7 +253,7 @@ func TestGenerateWallets(t *testing.T) {
 				qty:   10,
 			},
 			want: &Account{
-				Coin:     "Ether",
+				Coin:     "Ethereum",
 				CoinType: 60,
 				Addresses: Addresses{
 					{
@@ -318,7 +318,7 @@ func TestGenerateWallets(t *testing.T) {
 				qty:   10,
 			},
 			want: &Account{
-				Coin:     "Ether",
+				Coin:     "Ethereum",
 				CoinType: 60,
 				Addresses: Addresses{
 					{
@@ -379,7 +379,7 @@ func TestGenerateWallets(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := GenerateWallets(Ether, mnemonic, "", tt.args.start, tt.args.qty)
+			got, err := GenerateWallets(Ethereum, mnemonic, "", tt.args.start, tt.args.qty)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GenerateWallets() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -420,12 +420,12 @@ func TestGenerateWalletsWithWrongMnemonic(t *testing.T) {
 			args: args{
 				mnemonic:   "slogan lemon nerve soup annual depend shift olympic similar bounce wait often fury slush fish crazy bring police level economy crush can energy",
 				passphrase: "",
-				coin:       Ether,
+				coin:       Ethereum,
 				start:      0,
 				qty:        10,
 			},
 			want: &Account{
-				Coin:     "Ether",
+				Coin:     "Ethereum",
 				CoinType: 60,
 			},
 			wantErr: true,

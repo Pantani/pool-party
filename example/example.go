@@ -7,12 +7,12 @@ import (
 )
 
 func main() {
-	pool := pool_party.NewPoolWithSecret(bip44.Ether, "simple habit juice brush blush derive biology busy clown sister maple recipe", "1234")
+	pool := pool_party.NewPoolWithSecret(bip44.Ethereum, "simple habit juice brush blush derive biology busy clown sister maple recipe", "1234")
 	logger.Info("pool with secret", logger.Params{"params": pool})
 
 	// OR
 
-	pool = pool_party.NewPool(bip44.Ether)
+	pool = pool_party.NewPool(bip44.Ethereum)
 
 	// Generate new mnemonic with 128 bits
 	err := pool.GenerateMnemonic(128, "")
