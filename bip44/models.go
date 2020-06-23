@@ -48,7 +48,7 @@ const (
 
 var CoinList = map[Coin]*Altcoin{
 	Ethereum: {"Ethereum", 0xff, 0xff, 60},
-	Energi:   {"Energi", 0xff, 0xff, 9797},
+	Energi:   {"Energi", 0xff, 0xff, 39797},
 	Bitcoin:  {"Bitcoin", 0x00, 0x80, 0},
 	Litecoin: {"Litecoin", 0x30, 0xb0, 2},
 	Dash:     {"Dash", 0x4c, 0xcc, 5},
