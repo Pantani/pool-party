@@ -2,9 +2,11 @@ package bip44
 
 import (
 	"encoding/hex"
+
+	"github.com/Pantani/pool-party/bip39"
+
 	"github.com/Pantani/errors"
 	log "github.com/Pantani/logger"
-	"github.com/Pantani/pool-party/bip39"
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcutil"
@@ -67,6 +69,7 @@ func bip44(coin *Altcoin, start, qty int, pkb []byte) (*Account, error) {
 		receive, err := acct0External.Child(uint32(i))
 		if err != nil {
 			log.Error(err, "Failed to create receive address", log.Params{"i": i})
+			continue
 		}
 		// ECPrivKey converts the extended key to a btcec private key and returns it.
 		// As you might imagine this is only possible if the extended key is a private
@@ -75,45 +78,55 @@ func bip44(coin *Altcoin, start, qty int, pkb []byte) (*Account, error) {
 		privk, err := receive.ECPrivKey()
 		if err != nil {
 			log.Error(err, "converts the extended key to a private key failed", log.Params{"i": i, "receive": receive})
+			continue
 		}
 
 		// ECPubKey converts the extended key to a btcec public key and returns it.
 		pubk, err := receive.ECPubKey()
 		if err != nil {
 			log.Error(err, "converts the extended key to a public key failed", log.Params{"i": i, "receive": receive})
+			continue
 		}
 
-		// Ethereum addresses are handle differently
-		if coin.Name == "Ethereum" {
+		// Ethereum and Energi addresses are handle differently
+		if coin.Name == "Ethereum" || coin.Name == "Energi" {
 			// create our address from the publickey
 			address := crypto.PubkeyToAddress(*pubk.ToECDSA())
 
 			// add the address to our addresses, with the pub and privkey as a string (compressed)
 			account.Addresses = append(account.Addresses,
-				Address{Address: address.String(),
+				Address{
+					Address: address.String(),
 					Pubkey:  "0x" + hex.EncodeToString(pubk.SerializeCompressed()),
-					Privkey: "0x" + hex.EncodeToString(privk.Serialize())})
-		} else {
-			// Address converts the extended key to a standard bitcoin pay-to-pubkey-hash
-			// address for the passed network.
-			address, err := receive.Address(net)
-			if err != nil {
-				log.Error(err, "address conversion failed", log.Params{"i": i, "receive": receive, "net": net})
-			}
+					Privkey: "0x" + hex.EncodeToString(privk.Serialize()),
+				})
 
-			// NewWIF creates a new WIF structure to export an address and its private key
-			// as a string encoded in the Wallet Import Format.  The compress argument
-			// specifies whether the address intended to be imported or exported was created
-			// by serializing the public key compressed rather than uncompressed.
-			wif, err := btcutil.NewWIF(privk, net, true)
-			if err != nil {
-				log.Error(err, "creates a new WIF structure failed", log.Params{"i": i, "receive": receive, "net": net})
-			}
-			account.Addresses = append(account.Addresses,
-				Address{Address: address.String(),
-					Pubkey:  hex.EncodeToString(pubk.SerializeCompressed()),
-					Privkey: wif.String()})
+			continue
 		}
+
+		// Address converts the extended key to a standard bitcoin pay-to-pubkey-hash
+		// address for the passed network.
+		address, err := receive.Address(net)
+		if err != nil {
+			log.Error(err, "address conversion failed", log.Params{"i": i, "receive": receive, "net": net})
+			continue
+		}
+
+		// NewWIF creates a new WIF structure to export an address and its private key
+		// as a string encoded in the Wallet Import Format.  The compress argument
+		// specifies whether the address intended to be imported or exported was created
+		// by serializing the public key compressed rather than uncompressed.
+		wif, err := btcutil.NewWIF(privk, net, true)
+		if err != nil {
+			log.Error(err, "creates a new WIF structure failed", log.Params{"i": i, "receive": receive, "net": net})
+			continue
+		}
+		account.Addresses = append(account.Addresses,
+			Address{
+				Address: address.String(),
+				Pubkey:  hex.EncodeToString(pubk.SerializeCompressed()),
+				Privkey: wif.String(),
+			})
 	}
 	return account, nil
 }
@@ -122,12 +135,11 @@ func GenerateWallets(coin Coin, mnemonic, passphrase string, start, qty int) (*A
 	if _, ok := CoinList[coin]; !ok {
 		return nil, errors.E("Invalid coin", errors.Params{"coin": coin})
 	}
-
-	var pk *btcec.PrivateKey
-	var err error
-
-	wallet := &Wallet{}
-	wallet.Seedwords = mnemonic
+	var (
+		pk  *btcec.PrivateKey
+		err error
+	)
+	wallet := &Wallet{Seedwords: mnemonic}
 
 	// https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
 	// to create binary bip39 from the mnemonic, we use the PBKDF2 function with a mnemonic sentence (in UTF-8 NFKD)
