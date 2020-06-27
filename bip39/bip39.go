@@ -52,7 +52,7 @@ var (
 
 var (
 	// ErrInvalidMnemonic is returned when trying to use a malformed mnemonic.
-	ErrInvalidMnemonic = errors.New("invalid mnenomic")
+	ErrInvalidMnemonic = errors.New("invalid mnemonic")
 
 	// ErrEntropyLengthInvalid is returned when trying to use an entropy set with
 	// an invalid size.
