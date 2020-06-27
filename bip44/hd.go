@@ -2,7 +2,6 @@ package bip44
 
 import (
 	"encoding/hex"
-
 	"github.com/Pantani/pool-party/bip39"
 
 	"github.com/Pantani/errors"
@@ -179,6 +178,6 @@ func GenerateWallets(coin Coin, mnemonic, passphrase string, start, qty int) (*A
 		return nil, err
 	}
 	account.PrivateKey = hex.EncodeToString(pk.Serialize())
-
-	return account, err
+	account.Masterkey = pk
+	return account, nil
 }

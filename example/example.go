@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/Pantani/logger"
 	pool_party "github.com/Pantani/pool-party"
+
+	"github.com/Pantani/logger"
 	"github.com/Pantani/pool-party/bip44"
 )
 

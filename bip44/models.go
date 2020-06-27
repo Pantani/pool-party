@@ -1,6 +1,7 @@
 package bip44
 
 import (
+	"github.com/btcsuite/btcd/btcec"
 	"github.com/btcsuite/btcutil/hdkeychain"
 )
 
@@ -17,15 +18,15 @@ type Account struct {
 	CoinType   int
 	Key        *hdkeychain.ExtendedKey // bip44 extended key (m/44'/cointype'/0')
 	External   *hdkeychain.ExtendedKey // external extended key (m/44'/cointype'/0'/0)
+	Masterkey  *btcec.PrivateKey
 	Addresses  Addresses
 	PrivateKey string
 }
 
 type Wallet struct {
-	Seed      []byte                  // bip39 64byte (512bits) bip39
-	Seedwords string                  // bip39 mnemonic
-	Masterkey *hdkeychain.ExtendedKey // bip32 master (root) key
-	Accounts  []Account               // different coin accounts
+	Seed      []byte    // bip39 64byte (512bits) bip39
+	Seedwords string    // bip39 mnemonic
+	Accounts  []Account // different coin accounts
 }
 
 type Altcoin struct {
