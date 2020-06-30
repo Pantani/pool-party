@@ -98,6 +98,7 @@ func bip44(coin *Altcoin, start, qty int, pkb []byte) (*Account, error) {
 					Address: address.String(),
 					Pubkey:  "0x" + hex.EncodeToString(pubk.SerializeCompressed()),
 					Privkey: "0x" + hex.EncodeToString(privk.Serialize()),
+					Index:   i,
 				})
 
 			continue
@@ -125,6 +126,7 @@ func bip44(coin *Altcoin, start, qty int, pkb []byte) (*Account, error) {
 				Address: address.String(),
 				Pubkey:  hex.EncodeToString(pubk.SerializeCompressed()),
 				Privkey: wif.String(),
+				Index:   i,
 			})
 	}
 	return account, nil

@@ -11,6 +11,7 @@ type Address struct {
 	Address string
 	Pubkey  string
 	Privkey string
+	Index   int
 }
 
 type Account struct {
