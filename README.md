@@ -1,3 +1,4 @@
+[![Go Reference](https://pkg.go.dev/badge/github.com/Pantani/pool-party.svg)](https://pkg.go.dev/github.com/Pantani/pool-party)
 [![codecov](https://codecov.io/gh/Pantani/pool-party/branch/master/graph/badge.svg?token=2PPNMZ99KQ)](https://codecov.io/gh/Pantani/pool-party)
 
 # Pool-Party
