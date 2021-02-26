@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/Pantani/pool-party/branch/master/graph/badge.svg?token=2PPNMZ99KQ)](https://codecov.io/gh/Pantani/pool-party)
+
 # Pool-Party
 
 Multi-coin address pool generation.
